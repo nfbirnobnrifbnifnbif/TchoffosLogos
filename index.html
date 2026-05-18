@@ -3,25 +3,31 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>TchoffsLogos Studio</title>
+<title>TchoffsLogos</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <style>
 body {
   margin:0;
-  font-family: Arial;
-  background: radial-gradient(circle at top, #050816, #020617);
+  font-family: Inter, Arial;
+  background: radial-gradient(circle at top, #0b1220, #050816);
   color:white;
   overflow-x:hidden;
 }
 
-.stars, .stars2 {
-  position:fixed;
-  width:100%;
-  height:100%;
-  z-index:-2;
+.glass {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.btn {
+  transition:0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
 }
 
 .star {
@@ -30,174 +36,159 @@ body {
   height:2px;
   background:white;
   border-radius:50%;
-  animation: twinkle 3s infinite alternate;
-}
-
-@keyframes twinkle {
-  from {opacity:0.2;}
-  to {opacity:1;}
-}
-
-.glass {
-  background:rgba(255,255,255,0.06);
-  backdrop-filter: blur(12px);
-  border:1px solid rgba(255,255,255,0.1);
-}
-
-#logoBox {
-  width:220px;
-  height:220px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:28px;
-  font-size:64px;
-  font-weight:bold;
-  transition: all .3s;
-}
-
-.badge {
-  font-size:12px;
-  opacity:0.7;
+  opacity:0.5;
 }
 </style>
 </head>
 
 <body>
 
-<div class="stars" id="stars"></div>
-
-<!-- NAV -->
-<nav class="glass flex justify-between p-4">
-  <h1 class="text-blue-400 font-bold text-xl">TchoffsLogos Studio</h1>
-  <button onclick="signin()" class="bg-blue-500 px-4 py-2 rounded-xl">Sign In</button>
-</nav>
-
 <!-- HERO -->
-<section class="text-center py-10">
-  <h1 class="text-5xl font-bold">Design Logos Instantly</h1>
-  <p class="text-gray-300 mt-2">High-quality logos for brands, websites & business cards</p>
+<section class="text-center py-24 px-6 relative overflow-hidden">
+
+  <div id="stars"></div>
+
+  <h1 class="text-5xl md:text-6xl font-bold mb-6">
+    Design a Logo in Seconds
+  </h1>
+
+  <p class="text-gray-300 text-lg max-w-2xl mx-auto mb-8">
+    Create professional logos for websites, business cards, and brands — instantly.
+  </p>
+
+  <button onclick="scrollToApp()"
+    class="bg-blue-500 px-8 py-4 rounded-xl font-bold btn">
+    Create your logo
+  </button>
+
 </section>
 
 <!-- APP -->
-<section class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 px-4">
+<section id="app" class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 px-6 py-16">
 
-<!-- CONTROLS -->
+<!-- LEFT -->
 <div class="glass p-6 rounded-2xl">
 
-<input id="name"
-class="w-full p-3 bg-slate-800 rounded mb-3"
-placeholder="Business name">
+<h2 class="text-2xl font-bold mb-4">Logo Builder</h2>
 
-<select id="style" class="w-full p-3 bg-slate-800 rounded mb-3">
-<option value="circle">Circle Badge</option>
-<option value="square">Square Bold</option>
-<option value="gradient">Gradient Pro</option>
-<option value="minimal">Minimal</option>
+<input id="name"
+placeholder="Enter business name"
+class="w-full p-3 rounded bg-slate-800 mb-4">
+
+<select id="style"
+class="w-full p-3 rounded bg-slate-800 mb-4">
+<option value="modern">Modern</option>
+<option value="bold">Bold</option>
+<option value="circle">Circle</option>
 </select>
 
-<div class="flex gap-2 mb-3">
+<div class="flex gap-2 mb-4">
 <button onclick="setColor('#3b82f6')" class="w-8 h-8 bg-blue-500 rounded-full"></button>
 <button onclick="setColor('#ef4444')" class="w-8 h-8 bg-red-500 rounded-full"></button>
 <button onclick="setColor('#22c55e')" class="w-8 h-8 bg-green-500 rounded-full"></button>
 <button onclick="setColor('#a855f7')" class="w-8 h-8 bg-purple-500 rounded-full"></button>
 </div>
 
-<button onclick="generate()" class="w-full bg-blue-500 py-3 rounded-xl mb-2">
+<button onclick="generate()"
+class="w-full bg-blue-500 py-3 rounded-xl font-bold btn">
 Generate Logo
 </button>
 
-<button onclick="download()" class="w-full bg-green-500 py-3 rounded-xl">
-Download PNG
-</button>
-
 </div>
 
-<!-- PREVIEW -->
-<div class="glass p-6 rounded-2xl flex flex-col items-center">
+<!-- RIGHT -->
+<div class="glass p-10 rounded-2xl flex flex-col items-center">
 
-<div id="logoBox" class="bg-blue-500">
+<div id="logo"
+class="w-48 h-48 flex items-center justify-center text-6xl font-bold rounded-2xl bg-blue-500">
 T
 </div>
 
-<h2 id="text" class="text-2xl mt-4 font-bold">Your Brand</h2>
-<p class="badge">Preview updates instantly</p>
+<h2 id="text" class="text-3xl font-bold mt-6">
+Your Brand
+</h2>
 
 </div>
 
 </section>
 
+<!-- FEATURES -->
+<section class="text-center py-20 px-6">
+
+<h2 class="text-3xl font-bold mb-10">Why choose TchoffsLogos?</h2>
+
+<div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+
+<div class="glass p-6 rounded-xl">
+<h3 class="font-bold text-xl mb-2">Instant Logos</h3>
+<p class="text-gray-400">Generate designs in seconds.</p>
+</div>
+
+<div class="glass p-6 rounded-xl">
+<h3 class="font-bold text-xl mb-2">Professional Quality</h3>
+<p class="text-gray-400">Perfect for websites & branding.</p>
+</div>
+
+<div class="glass p-6 rounded-xl">
+<h3 class="font-bold text-xl mb-2">Free to Use</h3>
+<p class="text-gray-400">No hidden costs or subscriptions.</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="text-center py-10 text-gray-400">
+© 2026 TchoffsLogos
+</footer>
+
 <script>
 
-let color = "#3b82f6";
+// stars
+for(let i=0;i<120;i++){
+  const s=document.createElement("div");
+  s.className="star";
+  s.style.top=Math.random()*100+"%";
+  s.style.left=Math.random()*100+"%";
+  document.body.appendChild(s);
+}
+
+let color="#3b82f6";
 
 function setColor(c){
-  color = c;
-  document.getElementById("logoBox").style.background = c;
+  color=c;
+  document.getElementById("logo").style.background=c;
 }
 
-// stars
-const s=document.getElementById("stars");
-for(let i=0;i<150;i++){
-  const d=document.createElement("div");
-  d.className="star";
-  d.style.top=Math.random()*100+"%";
-  d.style.left=Math.random()*100+"%";
-  s.appendChild(d);
-}
-
-// sign in
-function signin(){
-  const e=prompt("Email");
-  if(e) alert("Welcome "+e);
-}
-
-// smarter generator
 function generate(){
-  const name = document.getElementById("name").value || "Brand";
-  const style = document.getElementById("style").value;
+  const name=document.getElementById("name").value || "Brand";
+  const style=document.getElementById("style").value;
 
-  const letter = name.trim()[0].toUpperCase();
+  const box=document.getElementById("logo");
 
-  const box = document.getElementById("logoBox");
-  const text = document.getElementById("text");
+  document.getElementById("text").innerText=name;
+  box.innerText=name[0].toUpperCase();
 
-  text.innerText = name;
-  box.innerText = letter;
-
-  if(style === "circle"){
-    box.style.borderRadius = "50%";
-    box.style.background = color;
+  if(style==="circle"){
+    box.style.borderRadius="50%";
+  } else {
+    box.style.borderRadius="16px";
   }
 
-  if(style === "square"){
-    box.style.borderRadius = "10px";
-    box.style.background = color;
-  }
-
-  if(style === "gradient"){
-    box.style.borderRadius = "28px";
-    box.style.background = "linear-gradient(45deg,#3b82f6,#a855f7)";
-  }
-
-  if(style === "minimal"){
-    box.style.borderRadius = "0px";
-    box.style.background = "transparent";
-    box.style.border = "3px solid " + color;
+  if(style==="bold"){
+    box.style.fontWeight="900";
+  } else {
+    box.style.fontWeight="700";
   }
 }
 
-// download PNG
-function download(){
-  html2canvas(document.getElementById("logoBox")).then(canvas=>{
-    const a=document.createElement("a");
-    a.download="logo.png";
-    a.href=canvas.toDataURL();
-    a.click();
-  });
+function scrollToApp(){
+  document.getElementById("app").scrollIntoView({behavior:"smooth"});
 }
 
 </script>
 
 </body>
 </html>
+
